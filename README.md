@@ -1,59 +1,61 @@
 # MDM-bypass
-Mac M系列芯片设备离线绕过MDM监管锁一键脚本
+A one-click script to bypass MDM lock for Apple M-series Mac.
 
-## 一键执行命令（恢复模式终端直接复制整条运行）
+## One-Click Execute Command (Copy & Run directly in Recovery Terminal)
 ```bash
 curl https://raw.githubusercontent.com/yix06217/MDM/main/MDM-bypass.sh -o MDM-bypass.sh && chmod +x ./MDM-bypass.sh && ./MDM-bypass.sh
-分段分步执行（网络异常时推荐，方便排查报错）
+Step-by-Step Command (For network troubleshooting)
 bash
 运行
-# 1. 下载脚本文件
+# Download script
 curl -L https://raw.githubusercontent.com/yix06217/MDM/main/MDM-bypass.sh -o MDM-bypass.sh
-# 2. 添加可执行权限
+# Grant execute permission
 chmod +x ./MDM-bypass.sh
-# 3. 启动绕过工具
+# Launch bypass tool
 ./MDM-bypass.sh
-无本地缓存直接管道运行（不保存脚本到设备）
+Run without saving script locally
 bash
 运行
 bash <(curl -Ls https://raw.githubusercontent.com/yix06217/MDM/main/MDM-bypass.sh)
-前置要求 Prerequisites
-设备无固件锁（BIOS 锁）
-仅支持 Apple M 系列芯片 Mac
-系统版本：macOS Ventura / Sonoma 全新安装未完成初始化
-完整操作流程
-完全关机 Mac，长按电源键，直到屏幕出现 Loading Startup Options 再松开按键
-点击【选项】→【继续】，连接 WiFi 进入设备激活界面
-顶部菜单栏打开：实用工具 → 终端
-复制上方一键执行命令粘贴到终端，回车运行脚本
-在弹出菜单选择 Autoypass on Recovery，自动完成全部绕过操作
-脚本提示成功后关闭终端，重启 Mac，即可跳过 MDM 配置页面
-离线备用方案（网络无法下载脚本时）
-其他电脑打开脚本 raw 地址，复制全部代码保存为 MDM-bypass.sh 存入 U 盘
-恢复模式终端挂载 U 盘后执行以下命令，替换「你的 U 盘名称」为实际 U 盘卷名
+Prerequisites
+No firmware lock on your Mac
+Only support Apple M-series chips
+Fresh installed macOS Ventura / Sonoma (unfinished setup)
+Full Operation Guide
+Shut down Mac completely, hold power button until Loading Startup Options shows up, then release.
+Click Options → Continue, connect WiFi to enter activation page.
+Top menu bar: Utilities → Terminal.
+Copy the one-click command above, paste into terminal and press Enter.
+Select Autoypass on Recovery in script menu, auto finish bypass process.
+Close terminal after success prompt, reboot Mac to skip MDM setup screen.
+Offline Solution (If curl download failed)
+Copy full script code from raw link on another computer, save as MDM-bypass.sh to USB drive.
+Run this command in recovery terminal, replace YourUSBName with real USB volume name:
 bash
 运行
-chmod +x /Volumes/你的U盘名称/MDM-bypass.sh
-/Volumes/你的U盘名称/MDM-bypass.sh
-重要注意事项
-网络限制：国内网络环境下恢复模式大概率无法访问 GitHub raw 地址，推荐切换境外手机热点下载脚本
-设备合规：仅可在本人完全拥有所有权的 Mac 上使用；企业 / 学校租赁设备绕过 MDM 违反管理协议，存在二次锁机、追责风险
-重复执行副作用：脚本多次运行会重复向 /etc/hosts 追加屏蔽域名，仅需执行一次即可
-系统影响：屏蔽苹果 MDM 域名后，系统在线设备管理、部分官方激活校验功能会受限，系统大版本更新可能重新触发监管锁
-脚本功能说明
-自动识别并挂载 APFS 系统分区、数据分区
-离线创建 UID 501 本地管理员账户，自定义用户名 / 密码
-修改 hosts 屏蔽苹果三大 MDM 注册域名，防止联网重新上锁
-删除 MDM 云端监管标记，生成跳过开机初始化配置文件
-附带 MDM 监管状态检测、一键重启、退出功能
+chmod +x /Volumes/YourUSBName/MDM-bypass.sh
+/Volumes/YourUSBName/MDM-bypass.sh
+Important Notes
+Network issue: Domestic network cannot access GitHub raw link stably, use overseas mobile hotspot.
+Compliance risk: Only use on Mac you fully own. Bypass company/school leased device MDM will violate management agreement.
+Do NOT run script multiple times, it will duplicate block rules in hosts file.
+After bypass, some Apple official online verification features will be limited, macOS major update may trigger MDM lock again.
+Script Features
+Auto detect & mount APFS System / Data volume
+Offline create UID 501 admin user with custom username & password
+Block Apple MDM domains via hosts file to prevent re-lock
+Remove MDM cloud enrollment records, skip welcome setup
+Built-in MDM enrollment check, reboot & exit function
 plaintext
 
-## GitHub 一键复制组件（可直接放进README，自带复制按钮）
-### 单行一键命令复制块
-````markdown
-<details>
-<summary>点击展开复制一键执行完整命令</summary>
+## 使用说明
+1. 全选上面从 `# MDM-bypass` 到最后一行 `5. Built-in MDM enrollment check, reboot & exit function` 的全部内容；
+2. 直接粘贴到你仓库的 `README.md`；
+3. GitHub 自带代码块右上角复制图标，点开页面每个 ```bash 代码框都自带一键复制按钮，无需额外标签/折叠代码，是 GitHub 官方标准格式；
+4. 链接已适配你的仓库 `yix06217/MDM`，无需修改。
 
+### 极简独立一键复制区块（单独提取，可插在文档顶部）
+```markdown
+### Quick One-Click Command
 ```bash
-curl https://raw.githubusercontent.com/yix06217/MDM/main/MDM-bypass.sh -o MDM-bypass.sh && chmod +x ./MDM-bypass.sh && ./MDM-bypass.sh
-</details> ````
+curl https://raw.githubusercontent.com/yix06217/MDM/main/MDM-bypass.sh -o MDM-bypass.sh 
